@@ -4,12 +4,16 @@ require "DBStorageSemestralna.php";
 
 $storage = new DBStorageSemestralna();
 
+if(isset($_POST['title'])) {
+    $storage->createArticle($_POST['title'], $_POST['text'], $_POST['text2'], $_POST['thumbnail']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Domov</title>
+    <title>Editor</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -47,7 +51,25 @@ $storage = new DBStorageSemestralna();
     </div>
 </nav>
 <div class="container ramcek">
-
+    <form method="post">
+        <div class="form-group">
+            <label for="formGroupExampleInput">Nazov</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" name="title">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Text</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" name="text">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Text2</label>
+            <input type="text" class="form-control" id="formGroupExampleInput3" name="text2">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Thumbnail</label>
+            <input type="text" class="form-control" id="formGroupExampleInput4" name="thumbnail">
+        </div>
+        <input type="submit" class="btn btn-success" value="Ulozit">
+    </form>
 </div>
 <footer>
     Patrik Mydlar

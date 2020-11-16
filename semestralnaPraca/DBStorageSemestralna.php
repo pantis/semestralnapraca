@@ -1,6 +1,5 @@
 <?php
 
-
 class DBStorageSemestralna
 {
     private $user = "root";
@@ -20,7 +19,7 @@ class DBStorageSemestralna
     /**
      * @return ArticleLOL[]
      */
-    function loadAll()
+    public function loadAll()
     {
         $stmt = $this->pdo->query("select * from articles");
         $result = [];
@@ -31,9 +30,14 @@ class DBStorageSemestralna
         return $result;
     }
 
+    public function createArticle($title, $text, $text2, $thumbnail) {
+        $article = new ArticleLOL($title, $text, $text2, $thumbnail);
+        $this->Save($article);
+    }
 
-    function Save(ArticleLOL $article)
+    public function Save(ArticleLOL $article)
     {
-        // TODO: Implement Save() method.
+       $stmt = $this->pdo->prepare("insert into articles (title, text, text2, thumbnail) VALUES (?, ?, ?, ?)");
+       $stmt->execute([$article->getNazov(), $article->getText(), $article->getText2(), $article->getThumbnail()]);
     }
 }
