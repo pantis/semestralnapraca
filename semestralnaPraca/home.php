@@ -47,7 +47,17 @@ $storage = new DBStorageSemestralna();
     </div>
 </nav>
 <div class="container ramcek">
-
+    <?php foreach ($storage->loadAll() as $articleLOL) { ?>
+        <div class="media pt-3 pb-3">
+            <img class="d-flex align-self-center mr-3" src="<?php echo $articleLOL->getThumbnail() ?>" alt="Generic placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0"><?php echo $articleLOL->getNazov() ?></h5>
+                <p><?php echo $articleLOL->getText() ?></p>
+                <p class="mb-0"><?php echo $articleLOL->getText2() ?></p>
+            </div>
+        </div>
+        <p></p>
+    <?php } ?>
 </div>
 <footer>
     Patrik Mydlar
