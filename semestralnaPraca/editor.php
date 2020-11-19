@@ -4,9 +4,18 @@ require "DBStorageSemestralna.php";
 
 $storage = new DBStorageSemestralna();
 
-if(isset($_POST['title'])) {
+if (isset($_POST['title'])) {
     $storage->createArticle($_POST['title'], $_POST['text'], $_POST['text2'], $_POST['thumbnail']);
 }
+
+if (isset($_POST['idDelete'])) {
+    $storage->deleteArticle($_POST['idDelete']);
+}
+
+if (isset($_POST['idUpdate'])) {
+    $articleLOLUpdate = $storage->getArticle($_POST['idUpdate']);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -39,13 +48,7 @@ if(isset($_POST['title'])) {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Domov<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="guides.html">Prirucky</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="gallery.html">Galeria</a>
+                <a class="nav-link" href="#">Editor<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -54,11 +57,11 @@ if(isset($_POST['title'])) {
     <form method="post">
         <div class="form-group">
             <label for="formGroupExampleInput">Nazov</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" name="title">
+            <input type="text" class="form-control" id="formGroupExampleInput" name="title" size="50" maxlength="50" required>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Text</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" name="text">
+            <input type="text" class="form-control" id="formGroupExampleInput2" name="text" required>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Text2</label>
@@ -66,10 +69,31 @@ if(isset($_POST['title'])) {
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Thumbnail</label>
-            <input type="text" class="form-control" id="formGroupExampleInput4" name="thumbnail">
+            <input type="text" class="form-control" id="formGroupExampleInput4" name="thumbnail" size="50" maxlength="50" required>
         </div>
-        <input type="submit" class="btn btn-success" value="Ulozit">
+        <input type="submit" class="btn btn-success" value="Vytvorit">
     </form>
+    <p></p>
+    <?php foreach ($storage->loadAll() as $articleLOL) { ?>
+        <div class="media pt-3 pb-3">
+            <img class="d-flex align-self-center mr-3" src="<?php echo $articleLOL->getThumbnail() ?>"
+                 alt="Generic placeholder image">
+            <div class="media-body">
+                <form method="post" class="float-right" style="padding-right: 15px">
+                    <input type="hidden" name="idDelete" value="<?php echo $articleLOL->getId() ?>">
+                    <input type="submit" class="btn btn-danger" value="DELETE">
+                </form>
+                <form method="post" class="float-right" style="padding-right: 15px">
+                    <input type="hidden" name="idUpdate" value="<?php echo $articleLOL->getId() ?>">
+                    <input type="submit" class="btn btn-success" value="UPDATE">
+                </form>
+                <h5 class="mt-0"><?php echo $articleLOL->getNazov() ?></h5>
+                <p><?php echo $articleLOL->getText() ?></p>
+                <p class="mb-0"><?php echo $articleLOL->getText2() ?></p>
+            </div>
+        </div>
+        <p></p>
+    <?php } ?>
 </div>
 <footer>
     Patrik Mydlar

@@ -3,6 +3,7 @@
 
 class ArticleLOL
 {
+    private $id;
     private $title;
     private $text;
     private $text2;
@@ -85,5 +86,21 @@ class ArticleLOL
     public function setThumbnail($thumbnail)
     {
         $this->$thumbnail = $thumbnail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
