@@ -1,9 +1,9 @@
 <?php
 require "ArticleLOL.php";
-require "DBStorageSemestralna.php";
+require "Aplikacia.php";
 
 
-$storage = new DBStorageSemestralna();
+$storage = new Aplikacia();
 
 ?>
 <!DOCTYPE html>
@@ -27,13 +27,13 @@ $storage = new DBStorageSemestralna();
 </head>
 <body class="background">
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand" href="#"><img class="znacka" src="img/lollogo.png" alt="lollogo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <img class="znacka" src="img/lollogo.png" alt="lollogo">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Domov<span class="sr-only">(current)</span></a>
@@ -42,7 +42,7 @@ $storage = new DBStorageSemestralna();
                 <a class="nav-link" href="guides.html">Prirucky</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="gallery.html">Galeria</a>
+                <a class="nav-link" href="gallery.php">Galeria</a>
             </li>
         </ul>
     </div>
@@ -50,11 +50,12 @@ $storage = new DBStorageSemestralna();
 <div class="container ramcek">
     <?php foreach ($storage->loadAll() as $articleLOL) { ?>
         <div class="media pt-3 pb-3">
-            <img class="d-flex align-self-center mr-3" src="<?php echo $articleLOL->getThumbnail() ?>" alt="Generic placeholder image">
+            <img class="d-flex align-self-center mr-3" src="img/<?php echo $articleLOL->getThumbnail(); ?>" alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0"><?php echo $articleLOL->getNazov() ?></h5>
-                <p><?php echo $articleLOL->getText() ?></p>
-                <p class="mb-0"><?php echo $articleLOL->getText2() ?></p>
+                <h5 class="mt-0"><?php echo $articleLOL->getTitle(); ?></h5>
+                <?php foreach ($storage->breakLongText($articleLOL->getText(), 500, 550) as $text) { ?>
+                <p><?php echo $text; ?></p>
+                <?php } ?>
             </div>
         </div>
         <p></p>

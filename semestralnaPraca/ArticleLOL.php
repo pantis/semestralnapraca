@@ -6,28 +6,25 @@ class ArticleLOL
     private $id;
     private $title;
     private $text;
-    private $text2;
     private $thumbnail;
 
     /**
      * article constructor.
-     * @param $nazov
+     * @param $title
      * @param $text
-     * @param $text2
      * @param $thumbnail
      */
-    public function __construct($nazov, $text, $text2, $thumbnail)
+    public function __construct($title, $text,  $thumbnail)
     {
-        $this->title = $nazov;
+        $this->title = $title;
         $this->text = $text;
-        $this->text2 = $text2;
         $this->thumbnail = $thumbnail;
     }
 
     /**
      * @return mixed
      */
-    public function getNazov()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -35,9 +32,9 @@ class ArticleLOL
     /**
      * @param mixed $nazov
      */
-    public function setNazov($nazov)
+    public function setTitle($title)
     {
-        $this->title = $nazov;
+        $this->title = $title;
     }
 
     /**
@@ -54,22 +51,6 @@ class ArticleLOL
     public function setText($text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getText2()
-    {
-        return $this->text2;
-    }
-
-    /**
-     * @param mixed $text2
-     */
-    public function setText2($text2)
-    {
-        $this->text2 = $text2;
     }
 
     /**
